@@ -9,18 +9,24 @@
 	},
 	"scripts": {
 		"start": "node index.js",
-		"dev-server": "nodemon index.js"
+		"client": "npm start --prefix client",
+		"server": "nodemon index.js",
+		"dev": "concurrently \" npm run client\" \"npm run server\" ",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"author": "Saad",
 	"license": "ISC",
 	"dependencies": {
+		"body-parser": "^1.19.0",
 		"colors": "^1.4.0",
+		"concurrently": "^5.2.0",
 		"cookie-session": "^1.4.0",
 		"express": "^4.17.1",
 		"mongoose": "^5.9.25",
 		"morgan": "^1.10.0",
 		"nodemon": "^2.0.4",
 		"passport": "^0.4.1",
-		"passport-google-oauth20": "^2.0.0"
+		"passport-google-oauth20": "^2.0.0",
+		"stripe": "^8.78.0"
 	}
 }
