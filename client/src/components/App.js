@@ -7,7 +7,7 @@ import history from "../history";
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
-import SurveyNew from "./SurveyNew";
+import SurveyNew from "./surveys/SurveyNew";
 
 class App extends Component {
 	componentDidMount() {
@@ -28,13 +28,6 @@ class App extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		currentUser: state.auth,
-		cuurentState: state,
-	};
-};
-
-export default connect(mapStateToProps, {
+export default connect(null, {
 	fetchUser,
 })(App);

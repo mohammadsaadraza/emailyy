@@ -8,6 +8,7 @@ const passport = require("passport");
 const connectDB = require("./config/db");
 const authRoute = require("./routes/authRoutes");
 const billingRoute = require("./routes/billingRoute");
+const surveyRoute = require("./routes/surveyRoutes");
 const keys = require("./config/keys");
 
 connectDB();
@@ -31,6 +32,7 @@ app.use(passport.session());
 //routes
 app.use(authRoute);
 app.use(billingRoute);
+app.use(surveyRoute);
 
 if (process.env.NODE_ENV == "production") {
 	app.use(express.static("client/build"));
