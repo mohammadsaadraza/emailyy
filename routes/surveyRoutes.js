@@ -30,6 +30,7 @@ router.route("/api/surveys/webhook").post((req, res) => {
 				return { ...match, email: event.email };
 			}
 		});
+	console.log(events);
 
 	_.chain(events)
 		.compact()
