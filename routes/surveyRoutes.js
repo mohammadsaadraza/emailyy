@@ -30,32 +30,33 @@ router.route("/api/surveys/webhook").post((req, res) => {
 				return { ...match, email: event.email };
 			}
 		});
-	console.log(events);
+	// console.log(events);
 
-	_.chain(events)
+	const uniqueEvents = _.chain(events)
 		.compact()
 		.uniqBy("email", "surveyId")
-		.each((event) => console.log(event))
-		.each(({ surveyId, email, choice }) => {
-			console.log({
-				debugging: "vfnfnbv",
-				surveyId,
-				email,
-				choice,
-			});
-			Survey.updateOne(
-				{
-					_id: surveyId,
-					recipients: {
-						$elemMatch: { email: email, responded: false },
-					},
-				},
-				{
-					$inc: { [choice]: 1 },
-					$set: { "recipients.$.responded": true },
-				}
-			).exec();
+		.value();
+
+	uniqueEvents.forEach(({ surveyId, email, choice }) => {
+		console.log({
+			debug_log: "updating response",
+			surveyId,
+			email,
+			choice,
 		});
+		Survey.updateOne(
+			{
+				_id: surveyId,
+				recipients: {
+					$elemMatch: { email: email, responded: false },
+				},
+			},
+			{
+				$inc: { [choice]: 1 },
+				$set: { "recipients.$.responded": true },
+			}
+		).exec();
+	});
 
 	res.status(200).send({});
 });
