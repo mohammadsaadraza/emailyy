@@ -35,8 +35,10 @@ router.route("/api/surveys/webhook").post((req, res) => {
 	_.chain(events)
 		.compact()
 		.uniqBy("email", "surveyId")
+		.each((event) => console.log(event))
 		.each(({ surveyId, email, choice }) => {
 			console.log({
+				debugging: "vfnfnbv",
 				surveyId,
 				email,
 				choice,
