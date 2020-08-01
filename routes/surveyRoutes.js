@@ -14,7 +14,6 @@ router.route("/api/surveys/:surveyId/:choice").get((req, res) => {
 });
 
 router.route("/api/surveys/webhook").post((req, res) => {
-	console.log(req.body);
 	const p = new Path("/api/surveys/:surveyId/:choice");
 
 	const events = req.body
@@ -31,12 +30,16 @@ router.route("/api/surveys/webhook").post((req, res) => {
 				return { ...match, email: event.email };
 			}
 		});
-	console.log(events);
 
 	_.chain(events)
 		.compact()
-		.unionBy("email", "surveyId")
+		.uniqBy("email", "surveyId")
 		.each(({ surveyId, email, choice }) => {
+			console.log({
+				surveyId,
+				email,
+				choice,
+			});
 			Survey.updateOne(
 				{
 					_id: surveyId,
