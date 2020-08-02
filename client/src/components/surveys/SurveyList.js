@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { fetchSurveys } from "../../actions";
+import ShowPopup from "../ShowPopup";
 
 export class SurveyList extends Component {
 	componentDidMount() {
@@ -39,9 +40,12 @@ export class SurveyList extends Component {
 	}
 	render() {
 		return (
-			<div className="row">
-				<div className="col s12">{this.renderSurveys()}</div>
-			</div>
+			<React.Fragment>
+				<ShowPopup />
+				<div className="row">
+					<div className="col s12">{this.renderSurveys()}</div>
+				</div>
+			</React.Fragment>
 		);
 	}
 }

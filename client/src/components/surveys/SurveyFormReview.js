@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { submitSurvey } from "../../actions";
 
 import formFields from "./formFields";
+import ShowPopup from "../ShowPopup";
 
 const SurveyFormReview = ({ onBack, formValues, submitSurvey }) => {
 	const renderReviewFields = formFields.map(({ name, label }) => {
@@ -25,27 +26,30 @@ const SurveyFormReview = ({ onBack, formValues, submitSurvey }) => {
 	});
 
 	return (
-		<div className="col s12" style={{ minWidth: "400px", marginTop: "20px" }}>
-			<h5>Please confirm your entries</h5>
-			{renderReviewFields}
-			<div>
-				<button
-					type="submit"
-					className="green btn-flat right white-text"
-					onClick={() => submitSurvey(formValues)}
-				>
-					Submit
-					<i className="material-icons right">email</i>
-				</button>
-				<button
-					className="yellow darken-3 btn-flat left white-text"
-					onClick={onBack}
-				>
-					Back
-					<i className="material-icons left">arrow_back</i>
-				</button>
+		<React.Fragment>
+			<ShowPopup />
+			<div className="col s12" style={{ minWidth: "400px", marginTop: "20px" }}>
+				<h5>Please confirm your entries</h5>
+				{renderReviewFields}
+				<div>
+					<button
+						type="submit"
+						className="green btn-flat right white-text"
+						onClick={() => submitSurvey(formValues)}
+					>
+						Submit
+						<i className="material-icons right">email</i>
+					</button>
+					<button
+						className="yellow darken-3 btn-flat left white-text"
+						onClick={onBack}
+					>
+						Back
+						<i className="material-icons left">arrow_back</i>
+					</button>
+				</div>
 			</div>
-		</div>
+		</React.Fragment>
 	);
 };
 const mapStateToProps = (state) => {
