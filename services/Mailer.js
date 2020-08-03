@@ -1,12 +1,13 @@
 const keys = require("../config/keys");
 const sgMail = require("@sendgrid/mail");
+const keys = require("../config/keys");
 const surveyTemplate = require("./emailTemplates/surveyTemplate");
 sgMail.setApiKey(keys.sendGridKey);
 
 const Mailer = ({ subject, recipients }, template) => {
 	const msg = {
 		to: recipients,
-		from: "emaily.dev.app@gmail.com",
+		from: keys.sendGridAuthorizedEmail,
 		subject: subject,
 		isMultiple: true,
 		html: template,
